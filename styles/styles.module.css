@@ -1,0 +1,84 @@
+.homeMainContainer{
+    @apply p-6 text-black grid grid-cols-1 md:flex gap-5
+}
+
+.headerMenuContainer{
+    @apply p-3
+}
+
+.inputTag1{
+    @apply rounded bg-transparent outline-none mb-2 py-2 h-auto w-full text-[10px] px-2 md:text-[15px]
+}
+
+.inputTag2{
+    @apply rounded bg-transparent outline-none py-2 h-auto mb-2 w-full text-[10px] px-2 md:text-[15px] relative
+}
+
+.map{
+   @apply relative sm:w-full md:w-[60%]  h-[500px] lg:pr-[750px] sm:mt-3 md:ml-[25px] md:pr-[500px] md:pl-[70px]
+
+}
+
+.searchMainDiv{
+    justify-content: space-between;
+    display: flex;
+    width:100%;
+
+    @media (max-width: 640px) {
+        flex-direction: column;
+        gap:25px;
+    }
+}
+.map{
+    @media (max-width: 640px) {
+        width:100%;
+    }
+}
+.map{
+    @media (min-width: 770px) and (max-width: 863px){
+        padding-right: 400px;
+
+    }
+}
+.personal{
+        @media (max-width: 600px) {
+        display: none;
+        padding: 2px;
+        gap:2px;
+    }
+}
+
+.allTrips{
+    @media (max-width: 350px) {
+        display: none;
+        padding: 2px;
+    }
+}
+.personalChevron1{
+    margin-top: 4px;
+    @media (max-width: 350px) {
+        width:20px;
+        height:20px;
+    }
+}
+.suggestions {
+    position: absolute;  /* Positions the dropdown below the input */
+    background-color: blue;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%; /* Matches the width of the input */
+    max-height: 150px; /* Limits the height */
+    overflow-y: auto; /* Adds scroll for overflow */
+    z-index: 1000; /* Ensures the dropdown appears above other content */
+    margin-top: 2px; /* Small spacing between input and dropdown */
+}
+
+.suggestion-item {
+    padding: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f; /* Light gray background on hover */
+}
