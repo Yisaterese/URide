@@ -15,7 +15,7 @@
 }
 
 .map{
-   @apply relative sm:w-full md:w-[60%]  h-[500px] lg:pr-[750px] sm:mt-3 md:ml-[25px] md:pr-[500px] md:pl-[70px]
+   @apply relative sm:w-full md:w-[60%] mt-0 h-[430px] lg:pr-[750px] sm:mt-2 md:ml-[25px] md:pr-[500px] md:pl-[70px]
 
 }
 

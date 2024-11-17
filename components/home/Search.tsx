@@ -18,7 +18,7 @@ export default function Search() {
     const [pickUpSuggestions, setPickUpSuggestions] = useState([]);
     const [dropOffSuggestions, setDropOffSuggestions] = useState([]);
     const routeControlRef = useRef<L.Routing.Control | null>(null);
-
+    const [pickUpNow, setPickUpNow] = useState(false);
     const apiKey =' edba2d38cfmsh1cd51f5e2d3cfe3p1c0359jsnb5813a5';
 
     useEffect(() => {
@@ -194,13 +194,14 @@ export default function Search() {
                         <Icon icon={'flowbite:circle-plus-solid'} className={'h-4 w-4 text-black'}/>
                     </div>
 
-                    <div className={'flex justify-between text-black py-2 px-2 mb-2  w-full bg-white rounded border-2'}>
+                    <div className={'flex justify-between text-black py-2 px-2 mb-2  w-full bg-white rounded border-2'} onClick={()=> setPickUpNow( true)}>
                         <div className={'flex gap-2'}>
                             <Icon icon={'svg-spinners:clock'} className={'h-4 w-4 mt-1'}/>
                             <h1>Pickup now</h1>
                         </div>
                         <Icon icon={'mdi:chevron-down'} className={'h-5 w-5 mt-2'}/>
                     </div>
+
 
                     <div
                         className={'flex justify-evenly w-[150px] gap-2 text-black  py-1  mb-2 bg-white rounded-2xl border-2'}>
