@@ -7,7 +7,6 @@ import {
   SignedOut,
   UserButton
 } from '@clerk/nextjs';
-import Header from "../components/Header";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,13 +29,12 @@ export default function RootLayout({ children }) {
       <ClerkProvider>
         <html lang="en">
         <body>
-        <Header />
-        <SignedOut>
-          <SignInButton />
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
+        {/*<SignedOut>*/}
+        {/*  <SignInButton />*/}
+        {/*</SignedOut>*/}
+        {/*<SignedIn>*/}
+        {/*  <UserButton />*/}
+        {/*</SignedIn>*/}
         {children}
         </body>
         </html>

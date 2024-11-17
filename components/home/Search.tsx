@@ -19,7 +19,6 @@ export default function Search() {
     const [dropOffSuggestions, setDropOffSuggestions] = useState([]);
     const routeControlRef = useRef<L.Routing.Control | null>(null);
     const [pickUpNow, setPickUpNow] = useState(false);
-    const apiKey =' edba2d38cfmsh1cd51f5e2d3cfe3p1c0359jsnb5813a5';
 
     useEffect(() => {
         const mapContainer = document.getElementById('map');
