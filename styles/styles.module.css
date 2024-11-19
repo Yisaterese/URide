@@ -16,13 +16,16 @@
 
 .map{
    @apply relative sm:w-full md:w-[60%] mt-0 h-[430px] lg:pr-[750px] sm:mt-2 md:ml-[25px] md:pr-[500px] md:pl-[70px]
-
+}
+.homepageMap{
+    @apply relative sm:w-full md:w-[50%] mt-0 h-[430px] lg:pr-[750px] sm:mt-2 md:ml-[25px] md:pr-[500px] md:pl-[70px]
 }
 
 .searchMainDiv{
     justify-content: space-between;
     display: flex;
     width:100%;
+    padding: 0 35px 80px 20px;
 
     @media (max-width: 640px) {
         flex-direction: column;

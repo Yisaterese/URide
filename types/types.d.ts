@@ -3,10 +3,13 @@ import L from 'leaflet';
 
 
 export type HeaderInputProps ={
-    text:string;
     icon?:ReactNode;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onInput?: (e: React.FormEvent<HTMLInputElement>) => void;
+    onBlur?: () => void;
+    placeholder?: string;
     className?: string;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export type ButtonProps = {

@@ -7,6 +7,7 @@ import 'leaflet-routing-machine';
 import styles from '../../styles/styles.module.css';
 import {debounce} from "next/dist/server/utils";
 import {Icon} from '@iconify/react';
+import InputTag from './/InputItems'
 
 
 export default function Search() {
@@ -19,6 +20,7 @@ export default function Search() {
     const [dropOffSuggestions, setDropOffSuggestions] = useState([]);
     const routeControlRef = useRef<L.Routing.Control | null>(null);
     const [pickUpNow, setPickUpNow] = useState(false);
+
 
     useEffect(() => {
         const mapContainer = document.getElementById('map');
@@ -127,14 +129,12 @@ export default function Search() {
             <div className={'border-2 rounded-xl p-3 md:mt-3 sm:w-full  md:p-6 md:text-[15px] h-[400px] '}>
                 <div className="">
                     <p className="text-[10px] mb-4 font-bold md:text-[20px] md:font-bold">Get a ride</p>
-                    <div
-                        className={'flex gap-2 border-2 rounded bg-white mb-2  px-2 outline-none py-2 h-auto  w-full text-[10px] md:text-[15px] relative'}>
-                        <Icon icon={'fa-solid:dot-circle'} className={'text-black md:h-4 md:w-4 w-3 h-3 my-2.6'}/>
-                        <input
-                            type="text"
+                    <div className={'flex gap-2 border-2 rounded bg-white mb-2  px-2 outline-none py-2 h-auto  w-full text-[10px] md:text-[15px] relative'}>
+                        <Icon icon={'fa-solid:dot-circle'} className={'text-black md:h-4 md:w-4 w-3 h-3 my-2.6 mt-5'}/>
+                        <InputTag
                             value={pickUp}
-                            onChange={(e) => setPickUp(e.target.value)}
-                            onInput={(e) => fetchSuggestions((e.target as HTMLInputElement).value, true)}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPickUp(e.target.value)}
+                            onInput={(e: React.FormEvent<HTMLInputElement>) => fetchSuggestions((e.target as HTMLInputElement).value, true)}
                             placeholder="Pick up location"
                             onBlur={() => handleLocationSearch(pickUp, true)}
                             className="bg-transparent outline-none"
@@ -161,10 +161,8 @@ export default function Search() {
                     <div
                         className={'flex justify-between border-2 bg-white rounded mb-2  px-2 outline-none py-2 h-auto  w-full text-[10px] md:text-[15px] relative'}>
                         <div className={'flex gap-2 '}>
-                            <Icon icon={'mynaui:stop-square-solid'}
-                                  className={'text-black md:h-4 md:w-4 w-3 h-3 my-2.6'}/>
-                            <input
-                                type="text"
+                            <Icon icon={'mynaui:stop-square-solid'} className={'text-black md:h-4 md:w-4 w-3 h-3 my-2.6 mt-5'}/>
+                            <InputTag
                                 value={dropOff}
                                 onChange={(e) => setDropOff(e.target.value)}
                                 onInput={(e) => fetchSuggestions((e.target as HTMLInputElement).value, false)}
@@ -190,7 +188,7 @@ export default function Search() {
                                 </ul>
                             )}
                         </div>
-                        <Icon icon={'flowbite:circle-plus-solid'} className={'h-4 w-4 text-black'}/>
+                        <Icon icon={'flowbite:circle-plus-solid'} className={'h-4 w-4 text-black mt-5'}/>
                     </div>
 
                     <div className={'flex justify-between text-black py-2 px-2 mb-2  w-full bg-white rounded border-2'} onClick={()=> setPickUpNow( true)}>
@@ -198,7 +196,7 @@ export default function Search() {
                             <Icon icon={'svg-spinners:clock'} className={'h-4 w-4 mt-1'}/>
                             <h1>Pickup now</h1>
                         </div>
-                        <Icon icon={'mdi:chevron-down'} className={'h-5 w-5 mt-2'}/>
+                        <Icon icon={'mdi:chevron-down'} className={'h-5 w-5 mt-2 font-[900]'}/>
                     </div>
 
 
