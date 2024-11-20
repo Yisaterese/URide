@@ -12,7 +12,6 @@ import Navbar from '../components/home/HomepageNav';
 import MidSection from '../components/home/midSection';
 import RideWithURide from '../public/home/RideWithURide.png';
 import Image from 'next/image';
-import Footer from "../components/home/Footer";
 
 
 export default function Search() {
@@ -48,49 +47,96 @@ export default function Search() {
         return () => {
             if (map) {
                 map.remove();
+                setMap(null);
             }
         };
     }, [map, isLargeScreen]);
 
-    const handleLocationSearch = async (location: string, isPickUp: boolean) => {
+    const handleLocationSearch = async (input: string, isPickUp: boolean) => {
+        const coordinateRegex = /^-?\d+(\.\d+)?,-?\d+(\.\d+)?$/;
+        const isCoordinates = coordinateRegex.test(input.trim());
+
         try {
-            const options = {
-                method: 'GET',
-                url: 'https://trueway-geocoding.p.rapidapi.com/ReverseGeocode',
-                params: {
-                    location: '37.7879493,-122.3961974',
-                    language: 'en',
-                },
-                headers: {
-                    'x-rapidapi-key': process.env.NEXT_PUBLIC_TRUEWAY_API_KEY,
-                    'x-rapidapi-host': 'trueway-geocoding.p.rapidapi.com',
-                },
-            };
+            let coords = null;
+            let address = null;
 
-            const response = await axios.request(options);
+            if (isCoordinates) {
+                const options = {
+                    method: 'GET',
+                    url: 'https://trueway-geocoding.p.rapidapi.com/ReverseGeocode',
+                    params: {
+                        location: input.trim(),
+                        language: 'en',
+                    },
+                    headers: {
+                        'x-rapidapi-key': process.env.NEXT_PUBLIC_TRUEWAY_API_KEY,
+                        'x-rapidapi-host': 'trueway-geocoding.p.rapidapi.com',
+                    },
+                };
 
-            const result = response.data?.results?.[0];
-            if (result && result.geometry && result.geometry.location) {
-                const { lat, lng } = result.geometry.location;
+                const response = await axios.request(options);
+                const result = response.data?.results?.[0];
+                if (result) {
+                    coords = {
+                        lat: parseFloat(input.split(',')[0]),
+                        lng: parseFloat(input.split(',')[1]),
+                    };
+                    address = result.address;
+                }
+            } else {
+                const options = {
+                    method: 'GET',
+                    url: 'https://trueway-geocoding.p.rapidapi.com/Geocode',
+                    params: {
+                        address: input.trim(),
+                        language: 'en',
+                    },
+                    headers: {
+                        'x-rapidapi-key': process.env.NEXT_PUBLIC_TRUEWAY_API_KEY,
+                        'x-rapidapi-host': 'trueway-geocoding.p.rapidapi.com',
+                    },
+                };
+
+                const response = await axios.request(options);
+                const result = response.data?.results?.[0];
+                if (result) {
+                    coords = result.location;
+                    address = result.address;
+                }
+            }
+
+            if (coords) {
                 if (isPickUp) {
-                    setPickUpCoords({ lat, lng });
-                    setPickUp(location);
+                    setPickUpCoords(coords);
+                    setPickUp(address || input);
+
+                    if (map) {
+                        L.marker([coords.lat, coords.lng], )
+                            .addTo(map)
+                            .bindPopup(`<b>Pickup:</b> ${address || input}`)
+                            .openPopup();
+                    }
                 } else {
-                    setDropOffCoords({ lat, lng });
-                    setDropOff(location);
+                    setDropOffCoords(coords);
+                    setDropOff(address || input);
+
+                    if (map) {
+                        L.marker([coords.lat, coords.lng], )
+                            .addTo(map)
+                            .bindPopup(`<b class="">Desination:</b> ${address || input}`)
+                            .openPopup();
+                    }
                 }
 
                 if (map) {
-                    map.setView([lat, lng], 13);
-                    L.marker([lat, lng]).addTo(map).bindPopup(location).openPopup();
+                    map.setView([coords.lat, coords.lng], 13);
                 }
-            } else {
-                console.error('No valid location data found for the specified address.');
             }
         } catch (error) {
             console.error('Error fetching location details:', error);
         }
     };
+
 
     const fetchSuggestions = debounce(async (query: string, isPickUp: boolean) => {
         if (query.length > 2) {
@@ -115,21 +161,42 @@ export default function Search() {
         }
     }, 500);
 
+
     const handleSearch = () => {
         if (pickUpCoords && dropOffCoords && map) {
             if (routeControlRef.current) {
                 map.removeControl(routeControlRef.current);
+                routeControlRef.current = null;
             }
+
             routeControlRef.current = L.Routing.control({
                 waypoints: [
                     L.latLng(pickUpCoords.lat, pickUpCoords.lng),
                     L.latLng(dropOffCoords.lat, dropOffCoords.lng),
                 ],
+                routeWhileDragging: true,
+                lineOptions: {
+                    styles: [{ color: 'black', weight: 6 }],
+                    extendToWaypoints: true,
+                    missingRouteTolerance: 0.1
+                },
             }).addTo(map);
+
+            routeControlRef.current.on('routesfound', function (e) {
+                const routes = e.routes;
+                console.log('Routes found:', routes);
+            });
+
+            routeControlRef.current.on('routingerror', function (e) {
+                console.error('Routing error:', e.error);
+            });
         } else {
             console.log('Please enter both pickup and dropoff locations.');
         }
     };
+
+
+
 
     return (
         <div className="min-h-screen bg-white">
@@ -150,7 +217,6 @@ export default function Search() {
                                     icon="fa-solid:dot-circle"
                                     className={`md:h-4 md:w-4 w-3 h-3 my-2.6 mt-5  text-black`}
                                 />
-
                                 <InputTag
                                     value={pickUp}
                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPickUp(e.target.value)}
@@ -192,10 +258,8 @@ export default function Search() {
                             >
                                 See prices
                             </button>
-
                         </div>
                     </div>
-
                     {isLargeScreen && <div id="map" className={styles.homepageMap}></div>}
                 </div>
                 {!isLargeScreen && (
@@ -205,7 +269,7 @@ export default function Search() {
                 )}
             </div>
             <MidSection />
-            <Footer/>
+            {/*<Footer/>*/}
         </div>
     );
 }

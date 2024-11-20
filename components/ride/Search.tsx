@@ -4,10 +4,10 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
 import 'leaflet-routing-machine';
-import styles from '../../styles/styles.module.css';
 import {debounce} from "next/dist/server/utils";
 import {Icon} from '@iconify/react';
 import InputTag from './/InputItems'
+import styles from '../../styles/styles.module.css';
 
 
 export default function Search() {
@@ -16,8 +16,8 @@ export default function Search() {
     const [pickUpCoords, setPickUpCoords] = useState<{ lat: number, lng: number } | null>(null);
     const [dropOffCoords, setDropOffCoords] = useState<{ lat: number, lng: number } | null>(null);
     const [map, setMap] = useState<L.Map | null>(null);
-    const [pickUpSuggestions, setPickUpSuggestions] = useState([]);
-    const [dropOffSuggestions, setDropOffSuggestions] = useState([]);
+    const [pickUpSuggestions, setPickUpSuggestions] = useState<{ place_id: string; display_name: string }[]>([]);
+    const [dropOffSuggestions, setDropOffSuggestions] = useState<{ place_id: string; display_name: string }[]>([]);
     const routeControlRef = useRef<L.Routing.Control | null>(null);
     const [pickUpNow, setPickUpNow] = useState(false);
 
@@ -82,28 +82,55 @@ export default function Search() {
 
 
     const fetchSuggestions = debounce(async (query: string, isPickUp: boolean) => {
-        if (query.length > 2) {
-            try {
-                const response = await axios.get(`https://nominatim.openstreetmap.org/search`, {
-                    params: {
-                        q: query,
-                        format: 'json',
-                        addressdetails: 1,
-                        limit: 5,
-                    },
-                });
-                const suggestions = response.data;
+        if (!query.trim() || query.length <= 2) {
+            if (isPickUp) {
+                setPickUpSuggestions([]);
+            } else {
+                setDropOffSuggestions([]);
+            }
+            return;
+        }
+
+        try {
+            const response = await axios.get(`https://nominatim.openstreetmap.org/search`, {
+                params: {
+                    q: query,
+                    format: 'json',
+                    addressdetails: 1,
+                    limit: 5,
+                },
+            });
+
+            const suggestions = response.data as Array<{ place_id: string; display_name: string }>;
+
+            if (suggestions?.length > 0) {
                 if (isPickUp) {
                     setPickUpSuggestions(suggestions);
                 } else {
                     setDropOffSuggestions(suggestions);
                 }
-            } catch (error) {
-                console.error('Error fetching suggestions:', error);
+            } else {
+                if (isPickUp) {
+                    setPickUpSuggestions([]);
+                } else {
+                    setDropOffSuggestions([]);
+                }
+                console.warn('No suggestions available for query:', query);
+            }
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                console.error('API Error:', error.response?.data || error.message);
+            } else {
+                console.error('Unexpected Error:', error);
+            }
+
+            if (isPickUp) {
+                setPickUpSuggestions([]);
+            } else {
+                setDropOffSuggestions([]);
             }
         }
     }, 500);
-
 
 
 
@@ -118,6 +145,11 @@ export default function Search() {
                     L.latLng(pickUpCoords.lat, pickUpCoords.lng),
                     L.latLng(dropOffCoords.lat, dropOffCoords.lng),
                 ],
+                lineOptions: {
+                    styles: [{ color: 'black', weight: 4 }],
+                    extendToWaypoints: true,
+                    missingRouteTolerance: 0.1,
+                },
             }).addTo(map);
         } else {
             console.log('Please enter both pickup and dropoff locations.');
@@ -137,10 +169,10 @@ export default function Search() {
                             onInput={(e: React.FormEvent<HTMLInputElement>) => fetchSuggestions((e.target as HTMLInputElement).value, true)}
                             placeholder="Pick up location"
                             onBlur={() => handleLocationSearch(pickUp, true)}
-                            className="bg-transparent outline-none"
+                            className="bg-transparent outline-none text-black"
                         />
                         {pickUpSuggestions.length > 0 && (
-                            <ul className="suggestions-list">
+                            <ul className={styles.dropDown}>
                                 {pickUpSuggestions.map((suggestion: any) => (
                                     <li
                                         key={suggestion.place_id}
@@ -149,7 +181,7 @@ export default function Search() {
                                             handleLocationSearch(suggestion.display_name, true);
                                             setPickUpSuggestions([]);
                                         }}
-                                        className="suggestion-item"
+                                        className={"p-1 mt-2 cursor-pointer hover:translate-y-[-5px] hover:text-purple-700"}
                                     >
                                         {suggestion.display_name}
                                     </li>
@@ -165,13 +197,13 @@ export default function Search() {
                             <InputTag
                                 value={dropOff}
                                 onChange={(e) => setDropOff(e.target.value)}
-                                onInput={(e) => fetchSuggestions((e.target as HTMLInputElement).value, false)}
+                                onInput={(e: React.FormEvent<HTMLInputElement>) => fetchSuggestions((e.target as HTMLInputElement).value, true)}
                                 placeholder="Drop off location"
                                 onBlur={() => handleLocationSearch(dropOff, false)}
-                                className="bg-transparent outline-none"
+                                className="bg-transparent outline-none text-black"
                             />
                             {dropOffSuggestions.length > 0 && (
-                                <ul className={styles.suggestionsList}>
+                                <ul className={styles.dropDownOff}>
                                     {dropOffSuggestions.map((suggestion: any) => (
                                         <li
                                             key={suggestion.place_id}
@@ -180,7 +212,7 @@ export default function Search() {
                                                 handleLocationSearch(suggestion.display_name, false);
                                                 setDropOffSuggestions([]);
                                             }}
-                                            className={styles.suggestionItem}
+                                            className={'p-1 mt-2 cursor-pointer hover:translate-y-[-5px] hover:text-purple-700'}
                                         >
                                             {suggestion.display_name}
                                         </li>

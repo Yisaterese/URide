@@ -64,24 +64,61 @@
         height:20px;
     }
 }
-.suggestions {
+.dropDown{
     position: absolute;  /* Positions the dropdown below the input */
-    background-color: blue;
-    border: 1px solid #ccc;
+    background-color: darkgrey;
+    border-width: 1px;
     border-radius: 4px;
-    width: 100%; /* Matches the width of the input */
-    max-height: 150px; /* Limits the height */
-    overflow-y: auto; /* Adds scroll for overflow */
-    z-index: 1000; /* Ensures the dropdown appears above other content */
-    margin-top: 2px; /* Small spacing between input and dropdown */
-}
-
-.suggestion-item {
-    padding: 8px;
+    top: 100%;
+    color: #171717;
     cursor: pointer;
-    transition: background-color 0.3s;
+    left: 0;
+    max-height: 160px;
+    width: 100%;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: 8px;
+}
+.dropDownOff{
+    position: absolute;  /* Positions the dropdown below the input */
+    background-color: darkgrey;
+    border-width: 1px;
+    border-radius: 4px;
+    top: 100%;
+    color: #171717;
+    cursor: pointer;
+    left: 0;
+    max-height: 160px;
+    width: 100%;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: 8px;
 }
 
-.suggestion-item:hover {
-    background-color: #f0f; /* Light gray background on hover */
+
+/*.suggestion-item{*/
+/*    padding: 8px;*/
+/*    cursor: pointer;*/
+/*    transition: background-color 0.3s;*/
+/*}*/
+
+.suggestion-item:hover{
+
 }
+
+.suggestion-item{
+@apply  hover:translate-y-[-5px] hover:text-purple-700
+}
+
+.dropDown{
+    padding-inline: 8px 12px;
+    @apply  shadow-lg z-50
+
+}
+
+.dropDownOff{
+    padding-inline: 8px 12px;
+    @apply  shadow-lg z-50
+
+}
+

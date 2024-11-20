@@ -15,6 +15,7 @@ export default function MyTrip(){
         setDropDown(false);
     }
 
+
     return(
         <div className={'text-black flex gap-2 p-1 cursor-pointer '}>
             <div className={'hover:border-b-black hover:border-b-4 flex'}>

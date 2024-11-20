@@ -9,8 +9,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #ededed;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #ffffff;
   }
 }
 
@@ -19,3 +19,64 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+.leaflet-routing-container {
+  background-color: #ffffff;
+  border: 2px solid #0078ff;
+  border-radius: 8px;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  max-width: 300px;
+}
+
+/* Style the list of route steps */
+.leaflet-routing-container .leaflet-routing-alt {
+  color: #333333;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.leaflet-routing-container .leaflet-routing-alt.leaflet-routing-alt-selected {
+  background-color: #e0f7ff;
+  border-left: 4px solid #0078ff;
+  font-weight: bold;
+}
+
+.leaflet-routing-container .leaflet-routing-alt {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.leaflet-routing-container .leaflet-routing-alt:hover {
+  background-color: #f7f7f7;
+  cursor: pointer;
+}
+
+.leaflet-routing-container .leaflet-routing-header {
+  font-size: 16px;
+  font-weight: bold;
+  color: #0078ff;
+}
+
+.leaflet-routing-container .leaflet-routing-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.leaflet-routing-container .leaflet-routing-close-btn:hover {
+  background-color: #ff1a1a;
+}
+

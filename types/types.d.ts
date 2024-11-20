@@ -18,12 +18,15 @@ export type ButtonProps = {
     onClick?: () => void;
 }
 
-type MapContextType = {
-    map: L.Map | null;
-};
+//
+// export const PickupIcon = L.icon({
+//     iconUrl: 'public/home/pickup.png',
+//     iconSize: [32, 32],
+//     iconAnchor: [16, 32],
+// });
 
-type Suggestion = {
-    display_name: string;
-    lat: string;
-    lon: string;
-};
+// export const DropOffIcon =L.icon({
+//     iconUrl: 'public/home/dropOff.png',
+//     iconSize: [32, 32],
+//     iconAnchor: [16, 32],
+// });

@@ -70,35 +70,35 @@ export default function MidSection() {
             </div>
 
 
-            <div className={'flex sm:flex-col md:flex-row justify-between text-black mt-10'}>
-                <div className={'rounded sm:w-full md:w-1/2'}>
-                    <p className={'sm:text-xl sm:font-semibold text-3xl md:font-extrabold'}>It’s easier in the apps</p>
-                    <div className={'mt-5 bg-[#F3F3F3] flex justify-between'}>
-                        <div className={'flex mt-5 items-center gap-5 mx-5'}>
-                            <Image src={QRCode} alt={'QRcode'} className={'h-[150px] w-[150px]'}/>
-                            <p className={'text-2xl font-bold'}>
-                                Download the URide app
-                                <p className={'text-[12px]'}> Scan to download</p>
-                            </p>
-                            <Icon icon={'gg:arrow-right'} className={'h-8 w-8'}/>
-                        </div>
-                    </div>
-                </div>
+            {/*<div className={'flex sm:flex-col md:flex-row justify-between text-black mt-10'}>*/}
+            {/*    <div className={'rounded sm:w-full md:w-1/2'}>*/}
+            {/*        <p className={'sm:text-xl sm:font-semibold text-3xl md:font-extrabold'}>It’s easier in the apps</p>*/}
+            {/*        <div className={'mt-5 bg-[#F3F3F3] flex justify-between'}>*/}
+            {/*            <div className={'flex mt-5 items-center gap-5 mx-5'}>*/}
+            {/*                <Image src={QRCode} alt={'QRcode'} className={'h-[150px] w-[150px]'}/>*/}
+            {/*                <p className={'text-2xl font-bold'}>*/}
+            {/*                    Download the URide app*/}
+            {/*                    <p className={'text-[12px]'}> Scan to download</p>*/}
+            {/*                </p>*/}
+            {/*                <Icon icon={'gg:arrow-right'} className={'h-8 w-8'}/>*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
 
-                <div className={'rounded sm:hidden md:block sm:w-full md:w-1/2'}>
-                    <p className={'sm:text-xl sm:font-semibold text-3xl md:font-extrabold'}>It’s easier in the apps</p>
-                    <div className={'mt-5 bg-[#F3F3F3] flex justify-between'}>
-                        <div className={'flex mt-5 items-center gap-5 mx-5'}>
-                            <Image src={QRCode} alt={'QRcode'} className={'h-[150px] w-[150px]'}/>
-                            <p className={'text-2xl font-bold'}>
-                                Download the URide app
-                                <p className={'text-[12px]'}> Scan to download</p>
-                            </p>
-                            <Icon icon={'gg:arrow-right'} className={'h-8 w-8'}/>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {/*    <div className={'rounded sm:hidden md:flex-row sm:w-full md:w-1/2'}>*/}
+            {/*        <p className={'sm:text-xl sm:font-semibold text-3xl md:font-extrabold'}>It’s easier in the apps</p>*/}
+            {/*        <div className={'mt-5 bg-[#F3F3F3] flex justify-between'}>*/}
+            {/*            <div className={'flex mt-5 items-center gap-5 mx-5'}>*/}
+            {/*                <Image src={QRCode} alt={'QRcode'} className={'h-[150px] w-[150px]'}/>*/}
+            {/*                <p className={'text-2xl font-bold'}>*/}
+            {/*                    Download the URide app*/}
+            {/*                    <p className={'text-[12px]'}> Scan to download</p>*/}
+            {/*                </p>*/}
+            {/*                <Icon icon={'gg:arrow-right'} className={'h-8 w-8'}/>*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
 
         </div>
     );

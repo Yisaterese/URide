@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
+import Link from 'next/link';
 
 export default function Navbar() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -14,7 +15,9 @@ export default function Navbar() {
                 <div className="flex gap-7 items-center">
                     <h1 className="text-[30px]">URide</h1>
                     <div className="hidden md:flex gap-7 items-center">
-                        <h1>Ride</h1>
+                        <Link href={'/ride'}>
+                            <h1>Ride</h1>
+                        </Link>
                         <h1>Drive</h1>
                         <div className="flex gap-2">
                             <h1>About us</h1>
