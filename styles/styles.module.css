@@ -122,3 +122,6 @@
 
 }
 
+.rideModal{
+    z-index: 9999;
+}

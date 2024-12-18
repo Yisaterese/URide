@@ -1,5 +1,5 @@
 import {ReactNode} from "react";
-import L from 'leaflet';
+import { StaticImageData } from 'next/image';
 
 
 export type HeaderInputProps ={
@@ -18,7 +18,29 @@ export type ButtonProps = {
     onClick?: () => void;
 }
 
-//
+
+export type RideDetailsProps = {
+    image: string | StaticImageData;
+    title:string;
+    icon:string;l ;
+    numberOfPersons: number;
+    time:string;
+    text: string;
+    price:number | string;
+    classname?:string;
+    onClick: (data: RideDetailsProps) => void;
+
+}
+
+export type RideDetailsModalProps = {
+    closeModal: () => void;
+    baseFare:number | string;
+    minimumFare: number | string;
+    perMinuteFare: number | string;
+    perKilometerFare: number | string;
+    EstimatedSurCharges: number | string;
+}
+
 // export const PickupIcon = L.icon({
 //     iconUrl: 'public/home/pickup.png',
 //     iconSize: [32, 32],
@@ -30,3 +52,4 @@ export type ButtonProps = {
 //     iconSize: [32, 32],
 //     iconAnchor: [16, 32],
 // });
+

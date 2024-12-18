@@ -9,7 +9,6 @@ import { debounce } from 'next/dist/server/utils';
 import { Icon } from '@iconify/react';
 import InputTag from '../components/ride/InputItems';
 import Navbar from '../components/home/HomepageNav';
-import MidSection from '../components/home/midSection';
 import RideWithURide from '../public/home/RideWithURide.png';
 import Image from 'next/image';
 
@@ -36,6 +35,9 @@ export default function Search() {
 
     useEffect(() => {
         const mapContainer = document.getElementById('map');
+        if (mapContainer && mapContainer._leaflet_id) {
+            return;
+        }
         if (mapContainer && !map && isLargeScreen) {
             const mapInstance = L.map(mapContainer).setView([9.082, 8.6753], 6);
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -268,7 +270,6 @@ export default function Search() {
                     </div>
                 )}
             </div>
-            <MidSection />
             {/*<Footer/>*/}
         </div>
     );
