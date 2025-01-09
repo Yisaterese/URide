@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderMenu from '../lists/list';
+import {HeaderMenu} from '../lists/list';
 import MyTrip from "../components/myTrip/MyTrip";
 
 export default function Header() {

@@ -3,14 +3,16 @@ import React, { useState, useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
+import AdjustOutlinedIcon from '@mui/icons-material/AdjustOutlined';
 import 'leaflet-routing-machine';
 import styles from '../styles/styles.module.css';
 import { debounce } from 'next/dist/server/utils';
-import { Icon } from '@iconify/react';
 import InputTag from '../components/ride/InputItems';
 import Navbar from '../components/home/HomepageNav';
 import RideWithURide from '../public/home/RideWithURide.png';
 import Image from 'next/image';
+import StopSharpIcon from '@mui/icons-material/StopSharp';
+
 
 
 export default function Search() {
@@ -215,10 +217,7 @@ export default function Search() {
                                         ${isLargeScreen ? 'py-1' : 'py-1'} h-auto 
                                     ${isLargeScreen ? 'w-full' : 'w-1/2 '} text-[10px] md:text-[15px] relative text-white`}
                             >
-                                <Icon
-                                    icon="fa-solid:dot-circle"
-                                    className={`md:h-4 md:w-4 w-3 h-3 my-2.6 mt-5  text-black`}
-                                />
+                                <AdjustOutlinedIcon className={`md:h-4 md:w-4 w-3 h-3 my-2.6 mt-5  text-black`}/>
                                 <InputTag
                                     value={pickUp}
                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPickUp(e.target.value)}
@@ -235,10 +234,7 @@ export default function Search() {
                                 className={`flex gap-2 border-2 bg-[#F3F3F3] rounded mb-2 px-2 outline-none py-2 h-auto 
                                             ${isLargeScreen ? 'w-full' : 'w-1/2'} text-[10px] md:text-[15px] relative text-white`}
                             >
-                                <Icon
-                                    icon={'mynaui:stop-square-solid'}
-                                    className="text-black md:h-4 md:w-4 w-3 h-3 my-2.6 mt-5"
-                                />
+                                <StopSharpIcon className="text-black md:h-4 md:w-4 w-3 h-3 my-2.6 mt-5"/>
                                 <InputTag
                                     value={dropOff}
                                     onChange={(e) => setDropOff(e.target.value)}

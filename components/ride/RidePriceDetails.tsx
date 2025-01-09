@@ -18,7 +18,7 @@ const RideDetailsModal: React.FC<RideDetailsModalProps> = ({ closeModal ,baseFar
                     &times;
                 </button>
                 <h2 className="text-lg font-bold text-black mb-4">
-                    product_confirmation.price
+                    product confirmation price
                 </h2>
                 <p className="text-sm text-gray-700 mb-6">
                     Your fare will be the price presented before the trip or based on the rates below and other applicable surcharges and adjustments.
