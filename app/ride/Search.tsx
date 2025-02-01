@@ -7,8 +7,8 @@ import 'leaflet-routing-machine';
 import {debounce} from "next/dist/server/utils";
 import InputTag from '../../components/ride/InputItems'
 import styles from '../../styles/styles.module.css';
-import RideDetails from '../../components/ride/RideInfo';
-import {RideBaseFare, RideDetailsOptions} from '../../lists/list';
+import RideDetails from '../../components/ride/RideDetails';
+import {FareCharges, RideBaseFare, RideDetailsOptions} from '../../lists/list';
 import RideDetailsModal from '../../components/ride/RidePriceDetails';
 import {RideDetailsProps} from "../../types/types";
 import cash from '../../public/ride/cash.png';
@@ -17,9 +17,11 @@ import TripOriginOutlinedIcon from '@mui/icons-material/TripOriginOutlined';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import PersonIcon from '@mui/icons-material/Person';
-import StopSharpIcon from '@mui/icons-material/StopSharp';
-// import RideFareCalculator from "../utils/CalculateRideFare";
+import StopSharpIcon from '@mui/icons-material/StopSharp'   ;
+import {getCachedLocation,setCachedLocation} from "../utils/catchUtils";
+ import calculateFare from "../utils/CalculateRideFare";
 import handleCoordsValidation from "../utils/validateCoordinates";
+import {number} from "prop-types";
 
 export default function Search() {
     const [pickUp, setPickUp] = useState('');
@@ -33,20 +35,20 @@ export default function Search() {
     const [pickUpNow, setPickUpNow] = useState(false);
     const [showRideDetails, setShowRideDetails] = useState(false);
     const [modalData, setModalData] = useState<RideDetailsProps | null>(null);
-    const [activeBorder, setActiveBorder] = useState<String>('');
+    const [selectedRideTitle, setSelectedRideTitle] = useState<String>('');
     const[fareInNaira, setFareInNaira] = useState<number>(0);
 
-    const handleRideClick = (data: RideDetailsProps) => {
+    const handleRideClick = (data: any) => {
         setModalData(data);
-        setActiveBorder(data.title);
+        setSelectedRideTitle(data.title);
     };
 
 
     const closeModal = () => {
         setModalData(null);
     };
-    //create map instance
 
+    //create map instance
     useEffect(() => {
         const mapContainer = document.getElementById('map');
         if (mapContainer && mapContainer._leaflet_id) {
@@ -71,6 +73,18 @@ export default function Search() {
     const handleLocationSearch = async (input: string, isPickUp: boolean) => {
         const coordinateRegex = /^-?\d+(\.\d+)?,-?\d+(\.\d+)?$/;
         const isCoordinates = coordinateRegex.test(input.trim());
+
+        const cachedData = getCachedLocation(input, isPickUp);
+        if (cachedData) {
+            if (isPickUp) {
+                setPickUpCoords(cachedData.coords);
+                setPickUp(cachedData.address);
+            } else {
+                setDropOffCoords(cachedData.coords);
+                setDropOff(cachedData.address);
+            }
+            return;
+        }
 
         try {
             let coords = null;
@@ -132,6 +146,7 @@ export default function Search() {
                             .bindPopup(`<b>Pickup:</b> ${address || input}`)
                             .openPopup();
                     }
+
                 } else {
                     setDropOffCoords(coords);
                     setDropOff(address || input);
@@ -139,7 +154,7 @@ export default function Search() {
                     if (map) {
                         L.marker([coords.lat, coords.lng],)
                             .addTo(map)
-                            .bindPopup(`<b class="">Desination:</b> ${address || input}`)
+                            .bindPopup(`<b className="">Desination:</> ${address || input}`)
                             .openPopup();
                     }
                 }
@@ -147,7 +162,9 @@ export default function Search() {
                 if (map) {
                     map.setView([coords.lat, coords.lng], 13);
                 }
+                setCachedLocation(input, { coords, address }, isPickUp);
             }
+
         } catch (error) {
             throw new Error('Error fetching location details:');
         }
@@ -164,6 +181,17 @@ export default function Search() {
             return;
         }
 
+        // first check local storage for checked suggestions
+
+        const cachedSuggestions = getCachedLocation(query, isPickUp);
+        if (cachedSuggestions) {
+            if (isPickUp) {
+                setPickUpSuggestions(cachedSuggestions);
+            } else {
+                setDropOffSuggestions(cachedSuggestions);
+            }
+            return; // Skip API request since cached suggestions are available
+        }
         try {
             const response = await axios.get(`https://nominatim.openstreetmap.org/search`, {
                 params: {
@@ -188,7 +216,7 @@ export default function Search() {
                 } else {
                     setDropOffSuggestions([]);
                 }
-                throw new Error('No suggestions available for query:', query);
+                throw new Error('No suggestions available for query:');
             }
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -206,15 +234,14 @@ export default function Search() {
     }, 500);
 
 
-    const handleSearch = async() => {
+    const handleSearch = async () => {
         if (pickUpCoords && dropOffCoords && map) {
             if (routeControlRef.current) {
                 map.removeControl(routeControlRef.current);
                 routeControlRef.current = null;
             }
 
-
-
+            // Add route control to the map
             routeControlRef.current = L.Routing.control({
                 waypoints: [
                     L.latLng(pickUpCoords.lat, pickUpCoords.lng),
@@ -222,35 +249,39 @@ export default function Search() {
                 ],
                 routeWhileDragging: true,
                 lineOptions: {
-                    styles: [{color: 'black', weight: 5}],
+                    styles: [{ color: 'black', weight: 5 }],
                     extendToWaypoints: true,
                     missingRouteTolerance: 0.1
                 },
             }).addTo(map);
 
-            setShowRideDetails(true);
+            // update and uncomment later
+            // try {
+                // Fetch fare based on pickup and dropoff locations
+                // const { totalFare } = await calculateFare(pickUp, dropOff);
+                // console.log(totalFare);
+                // setFareInNaira(totalFare); // Store fare in state
+            // } catch (error) {
+            //     console.error("Error calculating fare:", error);
+                // alert("Could not calculate fare. Please try again.");
+                // return;
+            // }
 
+            setShowRideDetails(true); // Show ride details after successful fare calculation
 
-            // handle coords validations
-            const coordinates =  handleCoordsValidation(pickUpCoords?.lat, pickUpCoords?.lng,dropOffCoords?.lat,dropOffCoords?.lng);
-            // pass in the coordinates
-            // const fareInNaira =  RideFareCalculator(coordinates.pickUp.lat, coordinates.pickUp.lng, coordinates.dropOff.lat,coordinates.dropOff.lng);
-
-            setFareInNaira( await fareInNaira);
-            // console.log(fareInNaira);
+            // Handle routing events
             routeControlRef.current.on('routes found', function (e) {
                 const routes = e.routes;
             });
 
             routeControlRef.current.on('routing error', function (e) {
-                throw new Error('Routing error:', e.error);
-
+                console.error('Routing error:', e.error);
+                alert("Error finding route.");
             });
         } else {
-            throw new Error('Please enter both pickup and dropoff locations.');
+            alert('Please enter both pickup and dropoff locations.');
         }
     };
-
 
     return (
         <div className={styles.searchMainDiv}>
@@ -370,16 +401,16 @@ export default function Search() {
                                 numberOfPersons={ride.numberOfPersons}
                                 time={ride.time}
                                 text={ride.text}
-                                price={`₦${ride.price + fareInNaira}` }
+                                price={`₦${ride.price + fareInNaira.toFixed(2)}` }
                                 classname={ride.classname}
-                                onClick={() => handleRideClick(ride)}
-                             l={''}/>
+                                onClick={() => handleRideClick(ride.title)}
+                                isActiveBorder={selectedRideTitle  === ride.title}
+                            />
                         ))}
                     </div>
 
                     {/* Payment Section */}
                     <div className="bg-fixed  shadow-md bottom-0 left-0 right-0 z-10 flex justify-between items-center gap-4 border rounded-lg p-3 bg-white mt-4"
-                        onClick={handleRideClick}
                     >
                         <div className="flex items-center gap-2">
                             <Image src={cash} alt="cash" className="w-5 h-5"/>
@@ -387,7 +418,7 @@ export default function Search() {
                             <KeyboardArrowDownIcon className="h-5 w-5 mt-1 font-bold"/>
                         </div>
                         <button className="rounded bg-black text-white px-4 py-2 text-sm">
-                            Request {activeBorder ? `${activeBorder}` : ""}
+                            Request {selectedRideTitle ? `${selectedRideTitle}` : ""}
                         </button>
                     </div>
 
@@ -398,8 +429,8 @@ export default function Search() {
                             EstimatedSurCharges={"NGN 3,060.00"}
                             baseFare={"NGN 1,622.00"}
                             minimumFare={"NGN 2,254.00"}
-                            perKilometerFare={"NGN 361.00"}
-                            perMinuteFare={"NGN 66.00"}
+                            perKilometerFare={FareCharges[0].pricePerKilometer}
+                            perMinuteFare={FareCharges[0].pricePerKilometer}
                         />
                     )}
                 </div>

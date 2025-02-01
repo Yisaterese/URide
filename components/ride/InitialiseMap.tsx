@@ -4,7 +4,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import styles from '../../styles/styles.module.css';
 
-export default function Map() {
+export default function InitialiseMap() {
     useEffect(() => {
         const mapContainer = document.getElementById('map');
 

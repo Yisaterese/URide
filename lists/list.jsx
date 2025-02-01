@@ -82,7 +82,8 @@ export const RideBaseFare = [
 
  export const FareCharges = [
     {
-     pricePerKilometer : 176.27,
-     pricePerMinute: 84.21,
+        pricePerKilometer : 176.27,
+         pricePerMinute: 84.21,
     }
+
     ]

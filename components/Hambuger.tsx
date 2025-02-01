@@ -7,7 +7,7 @@ export default function Hamburger(state:{isOpen: boolean}){
             <div className={'flex gap-2 hover:text-purple-700 hover:translate-y-[-5px] '}>
                 <h1>Wallet</h1>
             </div>
-            <div className={' hover:translate-y-[-5px] hover:text-purple-700'}>
+            <div className={' v '}>
                 <h1>Promos</h1>
             </div>
             <div className={'flex gap-2 hover:translate-y-[-5px] hover:text-purple-700'}>

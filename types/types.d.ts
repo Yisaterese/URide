@@ -56,15 +56,16 @@ export type FareResponse = {
 export type RideDetailsProps = {
     image: string | StaticImageData;
     title:string;
-    icon:string;l ;
+    icon:string ;
     numberOfPersons: number;
     time:string;
     text: string;
     price:number | string;
     classname?:string;
-    onClick: (data: RideDetailsProps) => void;
-
+    onClick?: (data: RideDetailsProps) => void;
+    isActiveBorder? :boolean;
 }
+
 
 export type RideDetailsModalProps = {
     closeModal: () => void;
@@ -75,15 +76,4 @@ export type RideDetailsModalProps = {
     EstimatedSurCharges: number | string;
 }
 
-// export const PickupIcon = L.icon({
-//     iconUrl: 'public/home/pickup.png',
-//     iconSize: [32, 32],
-//     iconAnchor: [16, 32],
-// });
-
-// export const DropOffIcon =L.icon({
-//     iconUrl: 'public/home/dropOff.png',
-//     iconSize: [32, 32],
-//     iconAnchor: [16, 32],
-// });
 

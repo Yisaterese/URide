@@ -2,10 +2,10 @@
 import React, { useState } from 'react';
 import { RideDetailsProps } from "../../types/types";
 import Image from "next/image";
-import { Icon } from "@iconify/react";
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import URideX from '../../public/ride/URideX.png';
 
-const RideInfo: React.FC<RideDetailsProps> = ({
+const RideDetails: React.FC<RideDetailsProps> = ({
                                                   image = URideX,
                                                   title = "Default Title",
                                                   icon,
@@ -15,27 +15,13 @@ const RideInfo: React.FC<RideDetailsProps> = ({
                                                   price,
                                                   classname = '',
                                                   onClick,
+                                                  isActiveBorder = false,
                                               }) => {
-    const [activeBorder, setActiveBorder] = useState<string>('');
-
-    const handleClick = () => {
-        onClick({ image, title, icon, numberOfPersons, time, text, price, classname });
-    };
-
-    const handleMouseEnter = () => {
-        setActiveBorder('border border-black-800');
-    };
-
-    const handleMouseLeave = () => {
-        setActiveBorder('');
-    };
 
     return (
         <div
-            onClick={handleClick}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            className={`overflow-auto h-[120px] flex pt-2 gap-2 rounded-lg my-2 text-black cursor-pointer w-full transition-all duration-200 ${activeBorder}`}
+            onClick= {()=>({ image, title, icon, numberOfPersons, time, text, price, classname})}
+            className={`overflow-auto h-[120px] flex pt-2 gap-2 rounded-lg my-2 text-black cursor-pointer w-full transition-all duration-200 ${isActiveBorder ? 'border border-black' : 'border border-transparent'}` }
             tabIndex={0}
             aria-label={`Ride details for ${title}`}
         >
@@ -45,7 +31,7 @@ const RideInfo: React.FC<RideDetailsProps> = ({
                     <div className="flex gap-2 pr-2">
                         <h1 className="pr-1 text-[15px] font-bold">{title}</h1>
                         <div className="flex items-center gap-1">
-                            <Icon icon={icon} className="h-3 w-3" />
+                            <PersonRoundedIcon className="h-3 w-3" />
                             <h1>{numberOfPersons}</h1>
                         </div>
                     </div>
@@ -58,4 +44,4 @@ const RideInfo: React.FC<RideDetailsProps> = ({
     );
 };
 
-export default RideInfo;
+export default RideDetails;

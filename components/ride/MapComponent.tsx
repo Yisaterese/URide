@@ -1,9 +1,9 @@
 import React from 'react';
-import Map from './/Map';
-export default function Google(){
+import InitialiseMap from "./InitialiseMap";
+export default function Map(){
     return(
         <div className={'md:justify-end  md:flex relative'} >
-            <Map/>
+            <InitialiseMap/>
         </div>
     );
 }
