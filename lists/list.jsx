@@ -1,18 +1,20 @@
-import { Icon } from "@iconify/react";
+import TimeToLeaveSharpIcon from '@mui/icons-material/TimeToLeaveSharp';
+import Inventory2RoundedIcon from '@mui/icons-material/Inventory2Rounded';
 import URideGo from "../public/ride/URideGo.png";
 import URideX  from "..//public/ride/URideX.png";
 import URideSharePool_v1  from "..//public/ride/URideSharePool_v1.png"
 import URideComfort_Premium from "../public/ride/URideComfort_Premium.png"
+
  export const HeaderMenu = [
     {
         id: 1,
         name: 'Ride',
-        icon: <Icon icon={'raphael:car'} />
+        icon: <TimeToLeaveSharpIcon />
     },
     {
         id: 2,
         name: 'Package',
-        icon: <Icon icon={'teenyicons:box-outline'} />
+        icon: <Inventory2RoundedIcon />
     },
 ];
 
