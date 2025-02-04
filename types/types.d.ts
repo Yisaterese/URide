@@ -62,7 +62,7 @@ export type RideDetailsProps = {
     text: string;
     price:number | string;
     classname?:string;
-    onClick?: (data: RideDetailsProps) => void;
+    onClick?: (data: any) => void;
     isActiveBorder? :boolean;
 }
 
@@ -70,10 +70,10 @@ export type RideDetailsProps = {
 export type RideDetailsModalProps = {
     closeModal: () => void;
     baseFare:number | string;
-    minimumFare: number | string;
+    //minimumFare: number | string;
     perMinuteFare: number | string;
     perKilometerFare: number | string;
-    EstimatedSurCharges: number | string;
+    // EstimatedSurCharges: number | string;
 }
 
 

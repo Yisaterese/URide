@@ -20,8 +20,8 @@ const RideDetails: React.FC<RideDetailsProps> = ({
 
     return (
         <div
-            onClick= {()=>({ image, title, icon, numberOfPersons, time, text, price, classname})}
-            className={`overflow-auto h-[120px] flex pt-2 gap-2 rounded-lg my-2 text-black cursor-pointer w-full transition-all duration-200 ${isActiveBorder ? 'border border-black' : 'border border-transparent'}` }
+            onClick={() => onClick && onClick({ image, title, icon, numberOfPersons, time, text, price, classname })}
+            className={`overflow-auto h-[120px] flex pt-2 gap-2 rounded-lg my-2 text-black cursor-pointer w-full transition-all duration-200 ${isActiveBorder ? 'border-[8px] border-black' : 'border border-transparent'}` }
             tabIndex={0}
             aria-label={`Ride details for ${title}`}
         >

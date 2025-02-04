@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {Icon} from '@iconify/react';
+// import {Icon} from '@iconify/react';
 import Image from 'next/image';
 import myTripImage from '../../public/myTrip/myTripImage.svg';
 import requestRide from '../../public/myTrip/requestRide.svg';

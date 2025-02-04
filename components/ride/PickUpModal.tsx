@@ -1,12 +1,11 @@
 import React from 'react';
-import {Icon} from '@iconify/react';
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 export default function PickUpModal(){
     return(
 
-        <div className={'text-blackn '}>
+        <div className={'text-black '}>
             <div className={'flex'}>
-                <Icon icon={'cuida:arrow-left-outline'}/>
+                <ArrowBackIcon/>
                 <h1 className={'p-2'}>Clear</h1>
             </div>
         </div>

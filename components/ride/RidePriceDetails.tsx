@@ -2,10 +2,11 @@ import React from 'react';
 import {RideDetailsModalProps} from "../../types/types";
 
 const RideDetailsModal: React.FC<RideDetailsModalProps> = ({ closeModal ,baseFare,
-                                                               minimumFare,
+                                                              // minimumFare,
                                                                perMinuteFare,
                                                                perKilometerFare,
-                                                               EstimatedSurCharges}) => {
+                                                               // EstimatedSurCharges
+     }) => {
     return (
         <div className="modal-overlay  fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center" style={{ zIndex: 1999 }}>
             <div className="modal-container bg-white p-6 rounded-md w-96 relative px-8">
@@ -29,23 +30,24 @@ const RideDetailsModal: React.FC<RideDetailsModalProps> = ({ closeModal ,baseFar
                         <span>Base Fare</span>
                         <span>{baseFare}</span>
                     </div>
+                    {/*<div className="flex justify-between py-1 border-b">*/}
+                    {/*    <span>Minimum Fare</span>*/}
+                    {/*    <span>{minimumFare}</span>*/}
+                    {/*</div>*/}
                     <div className="flex justify-between py-1 border-b">
-                        <span>Minimum Fare</span>
-                        <span>{minimumFare}</span>
-                    </div>
-                    <div className="flex justify-between py-1 border-b">
-                        <span>+ Per Minute</span>
+                        <span>Per Minute</span>
                         <span>{perMinuteFare}</span>
                     </div>
                     <div className="flex justify-between py-1 border-b">
-                        <span>+ Per Kilometer</span>
+                        <span>Per Kilometer</span>
                         <span>{perKilometerFare}</span>
                     </div>
-                    <div className="flex justify-between font-bold text-xl py-1">
-                        <span>Estimated Surcharges</span>
-                        <span>{EstimatedSurCharges}</span>
-                    </div>
+                    {/*<div className="flex justify-between font-bold text-xl py-1">*/}
+                    {/*    <span>Estimated Surcharges</span>*/}
+                    {/*    <span>{EstimatedSurCharges}</span>*/}
+                    {/*</div>*/}
                 </div>
+
 
                 <p className="text-sm text-gray-600 mt-4">
                     Additional wait time charges may apply to your trip if the driver has waited 5 minute(s): up to NGN 36.10 per minute, depending on how busy it is.

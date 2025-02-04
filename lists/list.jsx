@@ -45,7 +45,7 @@ export const RideBaseFare = [
         numberOfPersons: 5,
         time: "8 mins away•6:24 AM",
         text: "Faster",
-        price: 500,
+        baseFare: 500,
         classname: "bg-blue-600 mr-2 text-white flex justify-center items-center rounded-lg",
     },
     {
@@ -55,7 +55,7 @@ export const RideBaseFare = [
         numberOfPersons: 3,
         time: "8 mins away•6:24 AM",
         text: "Affordable rides, all to yourself",
-        price: 700,
+        baseFare: 700,
         classname: "",
     },
     {
@@ -65,7 +65,7 @@ export const RideBaseFare = [
         numberOfPersons: 4,
         time: "4 mins away•12:04 AM",
         text: "Save by sharing",
-        price: 400,
+        baseFare: 400,
         classname: "bg-blue-600 mr-2 text-white flex justify-center items-center rounded-lg",
     },
     {
@@ -75,7 +75,7 @@ export const RideBaseFare = [
         numberOfPersons: 1,
         time: "8 mins away•6:24 AM",
         text: "Comfortable cars with top-quality drivers",
-        price: 1500,
+        baseFare: 1500,
         classname: "",
     },
 ];

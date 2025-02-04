@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Icon } from '@iconify/react';
 import Link from 'next/link';
-
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 export default function Navbar() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -21,15 +22,15 @@ export default function Navbar() {
                         <h1>Drive</h1>
                         <div className="flex gap-2">
                             <h1>About us</h1>
-                            <Icon icon={'mdi:chevron-down'} className={'text-2xl'} />
+                            <KeyboardArrowDownIcon  className={'text-2xl'} />
                         </div>
                     </div>
                     <div className="relative flex md:hidden">
-                        <Icon
-                            icon={isDropdownOpen ? 'mdi:chevron-up' : 'mdi:chevron-down'}
-                            className="text-2xl cursor-pointer"
-                            onClick={toggleDropdown}
-                        />
+                        {isDropdownOpen ? (
+                            <KeyboardArrowUpIcon className="text-2xl cursor-pointer" onClick={toggleDropdown} />
+                        ) : (
+                            <KeyboardArrowDownIcon className="text-2xl cursor-pointer" onClick={toggleDropdown} />
+                        )}
                         {isDropdownOpen && (
                             <div className="absolute top-8 left-0 w-[150px] bg-white text-black rounded-md shadow-lg z-50">
                                 <ul className="flex flex-col py-2">
@@ -43,7 +44,7 @@ export default function Navbar() {
                 </div>
                 <div className="flex gap-4 items-center">
                     <h1>Help</h1>
-                    <Icon icon={'mingcute:user-4-fill'} className="h-8 w-8" />
+                    <AccountCircleIcon className="" />
                 </div>
             </div>
         </div>

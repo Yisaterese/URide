@@ -3,8 +3,7 @@ import suggestRide from '../../public/home/suggestRide.png';
 import Image from 'next/image';
 import suggestionMidImage from '../../public/home/suggestionMidImage.png';
 import URideBussiness from '../../public/home/URideBussiness.png';
-import QRCode from '../../public/home/QRCode.png';
-import {Icon} from '@iconify/react';
+
 export default function MidSection() {
     return (
         <div className="my-10 mx-10 ">
