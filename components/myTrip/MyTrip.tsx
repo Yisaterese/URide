@@ -18,15 +18,15 @@ export default function MyTrip(){
 
 
     return(
-        <div className={'text-black flex gap-2 p-1 cursor-pointer '}>
-            <div className={'hover:border-b-black hover:border-b-4 flex'}>
-                <ReceiptIcon className={'py-2.5 h-10 w-10'}/>
+        <div className={'text-black  flex gap-2 p-1 cursor-pointer '}>
+            <div className={'hover:border-b-black gap-1 hover:border-b-4 flex'}>
+                <ReceiptIcon className={'mt-2.5'}/>
                 <h1 className={'py-2'}>My Trips</h1>
             </div>
             <Link href={'/myTrip'} >
                 <div onMouseEnter={handleDropDown} onMouseLeave={handleDropDownLeave} className={'flex '}>
                     <Image src={profile} alt={'profile'} className={'h-10 w-10 rounded-2xl'}/>
-                    <KeyboardArrowDownIcon className={'py-1 h-8 w-8'}/>
+                    <KeyboardArrowDownIcon className={'mt-2.5'}/>
                     <Hamburger isOpen={dropDown}/>
                 </div>
             </Link>
