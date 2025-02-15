@@ -7,7 +7,7 @@ export default async function calculateFare(pickUp: string | number, dropOff: st
         method: 'GET',
         url: 'https://driving-distance-calculator-between-two-points.p.rapidapi.com/data',
         params: {
-            origin: pickUp, // Replace with your origin
+            origin: pickUp, // Replace with your origin7;;`1
             destination: dropOff, // Replace with your destination
         },
         headers: {
@@ -29,13 +29,11 @@ export default async function calculateFare(pickUp: string | number, dropOff: st
 
         const fares = FareCharges[0]
         const totalFare = fares.pricePerKilometer * distanceInKilometers + fares.pricePerMinute * travelTimeInMinutes
-        console.log("calculateFare function called");
         // Return the total fare
         return {
             totalFare,
         };
     } catch (error) {
-        console.error("Error fetching distance:", error);
         throw new Error('Could not get distance or travel time');
     }
 }

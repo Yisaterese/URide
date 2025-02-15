@@ -62,8 +62,8 @@ export default function Search() {
 
         //create map instance
         useEffect(() => {
-            const mapContainer = document.getElementById('map');
-            if (mapContainer && mapContainer._leaflet_id) {
+            const mapContainer = document.getElementById('map') ;
+            if (mapContainer && mapContainer) {
                 return;
             }
             if (mapContainer && !map) {

@@ -21,6 +21,61 @@
     @apply relative sm:w-full md:w-[50%] mt-0 h-[430px] lg:pr-[750px] sm:mt-2 md:ml-[25px] md:pr-[500px] md:pl-[70px]
 }
 
+.anyWhereText {
+    @apply mb-4 text-[50px] md:text-[20px] font-extrabold text-black;
+}
+
+@media (max-width: 553px) {
+    .anyWhereText {
+        font-size: 20px;
+        width: 100%;
+    }
+
+    .searchMainDiv1 {
+        padding-bottom: 8px;
+        padding-right: 0;
+        width: 100%;
+    }
+
+    .inputTag {
+        width: 100%;
+
+    }
+
+    .searchMainDiv {
+        padding-bottom: 8px;
+        gap: 10px; /* Reduce the gap between searchMainDiv and homepageMap */
+        flex-direction: column; /* Stack the elements vertically */
+    }
+
+    .homepageMap {
+        margin-top: -10px; /* Move it up to reduce space */
+        margin-bottom: 0;
+        width: 100%; /* Ensure the map takes the full width */
+    }
+
+    .rideWithUride {
+        margin-top: -20px; /* Reduce space between homepageMap and rideWithUride */
+        width: auto;
+        padding: 0 30px 0 20px;
+    }
+}
+
+
+.rideWithUride{
+    width: 100%;
+    height: auto;
+}
+
+.inputTag{
+    @apply flex py-3 my-2 gap-2 mb-5  rounded px-2 bg-[#F3F3F3]
+}
+
+.searchMainDiv1 {
+    @apply rounded w-full md:w-[60%] md:mt-3 h-auto bg-white;
+}
+
+
 .searchMainDiv{
     justify-content: space-between;
     display: flex;
@@ -28,10 +83,10 @@
     padding: 0 35px 80px 20px;
 
     @media (max-width: 640px) {
-        flex-direction: column;
-        gap:25px;
+        flex-direction: column; gap:25px;
     }
 }
+
 .map{
     @media (max-width: 640px) {
         width:100%;

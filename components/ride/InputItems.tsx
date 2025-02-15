@@ -1,5 +1,6 @@
 import React from 'react';
 import { HeaderInputProps } from "../../types/types";
+import styles from '../../styles/styles.module.css';
 
 const InputTag: React.FC<HeaderInputProps> = ({  icon,
                                                   value,
@@ -9,10 +10,18 @@ const InputTag: React.FC<HeaderInputProps> = ({  icon,
                                                   placeholder,
                                                   className}) => {
     return (
-        <div className={'flex py-2 my-2 gap-2  bg-gray-300 rounded px-2'}>
+        <div className={styles.inputTag}>
             {icon}
-            <input type="text" value={value} onChange={onChange} onInput={onInput} onBlur={onBlur}
-                   placeholder={placeholder} className={className}/>
+            <input
+                type="text"
+                value={value}
+                onChange={onChange}
+                onInput={onInput}
+                onBlur={onBlur}
+                placeholder={placeholder}
+                className={`${className} placeholder:text-black`}
+            />
+
         </div>
     );
 }

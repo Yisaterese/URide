@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import {HeaderMenu} from '../lists/list';
 import MyTrip from "../components/myTrip/MyTrip";

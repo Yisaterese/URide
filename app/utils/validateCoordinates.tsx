@@ -3,6 +3,7 @@ export default function handleCoordsValidation(
     pickUpLng: number | undefined,
     dropOffLat: number | undefined,
     dropOffLng: number | undefined
+
 ) {
     if (
         pickUpLat !== undefined &&
